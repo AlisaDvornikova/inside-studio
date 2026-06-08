@@ -1,0 +1,47 @@
+<!-- Про нас + Карусель -->
+<section class="about-carousel-section">
+    <div class="container">
+        <div class="about-carousel-grid">
+            <div class="about-text-block">
+                <div class="about-card">
+                    <h2 class="about-title"><%= content.about_title || 'Про нас' %></h2>
+                    <% if (content.about_text1) { %><p class="about-text"><%= content.about_text1 %></p><% } %>
+                    <% if (content.about_text2) { %><p class="about-text"><%= content.about_text2 %></p><% } %>
+                </div>
+            </div>
+            <% if (images && images.length > 0) { %>
+            <div class="carousel-block">
+                <div id="danceCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <% images.forEach((img, i) => { %>
+                            <button type="button" data-bs-target="#danceCarousel" data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"></button>
+                        <% }); %>
+                    </div>
+                    <div class="carousel-inner">
+                        <% images.forEach((img, i) => { %>
+                            <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                                <img src="<%= img.image_path %>" class="d-block w-100" alt="Фото студии <%= i + 1 %>">
+                            </div>
+                        <% }); %>
+                    </div>
+                    <% if (images.length > 1) { %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#danceCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#danceCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="about-cta">
+            <% if (user) { %>
+                <a href="/profile" class="btn-start"><%= content.banner_btn_user || 'Личный кабинет' %></a>
+            <% } else { %>
+                <a href="/register" class="btn-start"><%= content.banner_btn_guest || 'Начать сейчас' %></a>
+            <% } %>
+        </div>
+    </div>
+</section>

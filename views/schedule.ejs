@@ -1,0 +1,129 @@
+<%- include('partials/header', { currentPage: 'schedule' }) %>
+
+<%
+    // Соответствие кода дня недели и id вкладки
+    const dayMap = [
+        { code: 'ПН', id: 'monday',    label: 'ПН' },
+        { code: 'ВТ', id: 'tuesday',   label: 'ВТ' },
+        { code: 'СР', id: 'wednesday', label: 'СР' },
+        { code: 'ЧТ', id: 'thursday',  label: 'ЧТ' },
+        { code: 'ПТ', id: 'friday',    label: 'ПТ' },
+        { code: 'СБ', id: 'saturday',  label: 'СБ' },
+        { code: 'ВС', id: 'sunday',    label: 'ВС' }
+    ];
+%>
+
+<section class="schedule-page">
+    <div class="container">
+        <div class="schedule-tabs">
+            <% dayMap.forEach((d, i) => { %>
+                <button class="tab-btn <%= i === 0 ? 'active' : '' %>" data-day="<%= d.id %>"><%= d.label %></button>
+            <% }); %>
+        </div>
+
+        <% dayMap.forEach((d, i) => { %>
+            <div id="<%= d.id %>" class="tab-content <%= i === 0 ? 'active' : '' %>">
+                <% const halls = (schedule && schedule[d.code]) ? schedule[d.code] : []; %>
+                <% if (halls.length === 0) { %>
+                    <div class="schedule-empty">В этот день занятий нет</div>
+                <% } else { %>
+                    <div class="schedule-day-list">
+                        <% halls.forEach(hallBlock => { %>
+                            <div class="schedule-hall-list">
+                                <h3 class="hall-title-list"><%= hallBlock.hall %></h3>
+                                <div class="schedule-items">
+                                    <% hallBlock.items.forEach(item => { %>
+                                        <div class="schedule-item" data-time="<%= item.time ? item.time.substring(0,5) : '' %>">
+                                            <div class="schedule-time"><%= item.time ? item.time.substring(0,5) : '' %></div>
+                                            <div class="schedule-info">
+                                                <% if (item.age_group) { %><span class="schedule-age"><%= item.age_group %></span><% } %>
+                                                <% if (item.direction_name) { %><span class="schedule-direction">- <%= item.direction_name %></span><% } %>
+                                                <% if (item.trainer_name) { %><span class="schedule-trainer">/ <%= item.trainer_name %></span><% } %>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } %>
+            </div>
+        <% }); %>
+
+        <div class="text-center mt-5">
+            <button type="button" class="btn-start" onclick="checkAuthAndEnroll()">Записаться на занятие</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function highlightCurrentClasses() {
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        const currentTimeMinutes = currentHour * 60 + currentMinute;
+
+        let currentDayIndex = now.getDay();
+        const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const currentDay = days[currentDayIndex];
+
+        const currentTabBtn = document.querySelector(`.tab-btn[data-day="${currentDay}"]`);
+        if (currentTabBtn) {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            currentTabBtn.classList.add('active');
+            const currentTabContent = document.getElementById(currentDay);
+            if (currentTabContent) {
+                currentTabContent.classList.add('active');
+            }
+        }
+
+        const scheduleItems = document.querySelectorAll('.schedule-item');
+        scheduleItems.forEach(item => {
+            const timeStr = item.getAttribute('data-time');
+            if (timeStr) {
+                const [hours, minutes] = timeStr.split(':').map(Number);
+                const classTimeMinutes = hours * 60 + minutes;
+                if (currentTimeMinutes >= classTimeMinutes && currentTimeMinutes <= classTimeMinutes + 60) {
+                    item.classList.add('current-class');
+                } else {
+                    item.classList.remove('current-class');
+                }
+            }
+        });
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const day = btn.dataset.day;
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(day).classList.add('active');
+        });
+    });
+
+    highlightCurrentClasses();
+    setInterval(highlightCurrentClasses, 60000);
+
+    // Проверка авторизации перед записью на занятие
+    function checkAuthAndEnroll() {
+        fetch('/check-auth')
+            .then(res => res.json())
+            .then(data => {
+                if (data.authenticated) {
+                    window.location.href = '/prices';
+                } else {
+                    window.location.href = '/login';
+                }
+            })
+            .catch(() => {
+                window.location.href = '/login';
+            });
+    }
+</script>
+
+<%- include('partials/footer') %>

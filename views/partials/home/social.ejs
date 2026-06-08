@@ -1,0 +1,23 @@
+<!-- Соцсети и адрес -->
+<section class="social-address-section">
+    <div class="container">
+        <div class="social-address-wrapper">
+            <div class="social-block">
+                <h3><i class="fab fa-instagram"></i> <%= content.social_title || 'Подпишись на наши соц-сети!' %></h3>
+                <div class="social-icons-large">
+                    <% if (content.social_instagram) { %><a href="<%= content.social_instagram %>" target="_blank" class="social-icon-large"><i class="fab fa-instagram"></i></a><% } %>
+                    <% if (content.social_telegram) { %><a href="<%= content.social_telegram %>" target="_blank" class="social-icon-large"><i class="fab fa-telegram"></i></a><% } %>
+                    <% if (content.social_vk) { %><a href="<%= content.social_vk %>" target="_blank" class="social-icon-large"><i class="fab fa-vk"></i></a><% } %>
+                </div>
+                <% if (content.social_note) { %><p class="social-note"><%= content.social_note %></p><% } %>
+            </div>
+            <div class="address-block-simple">
+                <h3><i class="fas fa-map-marker-alt"></i> <%= content.address_title || 'Найди нас на картах' %></h3>
+                <% if (content.address_name) { %><p><strong><%= content.address_name %></strong></p><% } %>
+                <% if (content.address_line1) { %><p><%= content.address_line1 %></p><% } %>
+                <% if (content.address_line2) { %><p><%= content.address_line2 %></p><% } %>
+                <% if (content.map_link) { %><a href="<%= content.map_link %>" target="_blank" class="map-link"><%= content.map_link_text || 'Открыть на карте →' %></a><% } %>
+            </div>
+        </div>
+    </div>
+</section>

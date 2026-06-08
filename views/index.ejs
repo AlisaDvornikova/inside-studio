@@ -1,0 +1,27 @@
+<%- include('partials/header', { currentPage: 'home' }) %>
+
+<%
+    // Карта block_key -> файл партиала
+    const blockPartials = {
+        banner: 'partials/home/banner',
+        about: 'partials/home/about',
+        reviews: 'partials/home/reviews',
+        social: 'partials/home/social'
+    };
+    const homeBlocks = (typeof blocks !== 'undefined' && blocks.length) ? blocks : [
+        { block_key: 'banner', is_visible: 1 },
+        { block_key: 'about', is_visible: 1 },
+        { block_key: 'reviews', is_visible: 1 },
+        { block_key: 'social', is_visible: 1 }
+    ];
+    const homeContent = (typeof content !== 'undefined' && content) ? content : {};
+    const homeImages = (typeof images !== 'undefined' && images) ? images : [];
+%>
+
+<% homeBlocks.forEach(block => { %>
+    <% if (block.is_visible && blockPartials[block.block_key]) { %>
+        <%- include(blockPartials[block.block_key], { content: homeContent, images: homeImages, reviews: reviews, user: user }) %>
+    <% } %>
+<% }); %>
+
+<%- include('partials/footer') %>

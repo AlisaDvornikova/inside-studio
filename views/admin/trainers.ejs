@@ -1,0 +1,56 @@
+<%- include('../partials/header', { currentPage: 'admin' }) %>
+
+<section class="admin-page admin-trainers">
+    <div class="container">
+        <h2>Управление тренерами</h2>
+        
+        <% const editing = (typeof editItem !== 'undefined' && editItem); %>
+
+        <h3><%= editing ? 'Редактировать тренера' : 'Добавить тренера' %></h3>
+        <form action="<%= editing ? '/admin/trainers/edit/' + editItem.id : '/admin/trainers/add' %>" method="POST" class="admin-form" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Имя тренера" value="<%= editing ? editItem.name : '' %>" required>
+            <input type="text" name="specialties" placeholder="Направления (через запятую)" value="<%= editing ? (editItem.specialties || '') : '' %>">
+            <input type="text" name="experience" placeholder="Опыт преподавания, напр. 5 лет" value="<%= editing ? (editItem.experience || '') : '' %>">
+            <input type="text" name="age_groups" placeholder="Группы, напр. 4-6 лет, 8-13 лет, 16+" value="<%= editing ? (editItem.age_groups || '') : '' %>">
+            <input type="text" name="social" placeholder="Ссылка на соцсети" value="<%= editing ? (editItem.social || '') : '' %>">
+            <textarea name="quote" placeholder="Цитата тренера"><%= editing ? (editItem.quote || '') : '' %></textarea>
+            <textarea name="description" placeholder="Описание"><%= editing ? (editItem.description || '') : '' %></textarea>
+
+            <% if (editing && editItem.photo) { %>
+                <div class="trainer-current-photo">
+                    <span>Текущее фото:</span>
+                    <img src="<%= editItem.photo %>" alt="<%= editItem.name %>">
+                </div>
+            <% } %>
+            <input type="file" name="photo">
+            <% if (editing) { %><small class="admin-hint">Оставьте поле фото пустым, чтобы сохранить текущее.</small><% } %>
+
+            <button type="submit" class="btn"><%= editing ? 'Сохранить' : 'Добавить' %></button>
+            <% if (editing) { %>
+                <a href="/admin/trainers" class="btn-cancel">Отмена</a>
+            <% } %>
+        </form>
+
+        <h3>Список тренеров</h3>
+        <div class="trainers-list">
+            <% trainers.forEach(trainer => { %>
+                <div class="trainer-item">
+                    <% if (trainer.photo) { %>
+                        <img src="<%= trainer.photo %>" alt="<%= trainer.name %>" class="trainer-item-photo">
+                    <% } %>
+                    <strong><%= trainer.name %></strong>
+                    <p><%= trainer.specialties %></p>
+                    <div class="trainer-item-actions">
+                        <a href="/admin/trainers?edit=<%= trainer.id %>" class="btn-edit">✎ Редактировать</a>
+                        <form action="/admin/trainers/delete/<%= trainer.id %>" method="POST" style="display:inline" onsubmit="return confirm('Удалить тренера? Его занятия и записи на них тоже удалятся.')">
+                            <button type="submit" class="btn-delete">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>
+

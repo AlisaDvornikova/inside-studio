@@ -1,0 +1,54 @@
+<%- include('../partials/header', { currentPage: 'admin' }) %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="color: #ffffff;">Админ-панель</h2>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Главная страница</h5>
+                    <p class="card-text">Блоки, тексты, фото и видео</p>
+                    <a href="/admin/home" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Расписание</h5>
+                    <p class="card-text">Управление расписанием занятий</p>
+                    <a href="/admin/schedule" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Тренеры</h5>
+                    <p class="card-text">Управление тренерами</p>
+                    <a href="/admin/trainers" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Мерч (товары)</h5>
+                    <p class="card-text">Добавление и управление товарами</p>
+                    <a href="/admin/merch" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

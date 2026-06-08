@@ -1,0 +1,3180 @@
+/* ========== ПОДКЛЮЧЕНИЕ ШРИФТА MONTSERRAT ========== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+/* ========== ОСНОВНЫЕ СТИЛИ ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0a;
+    background-image: url('/images/lines-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 76px;
+    position: relative;
+}
+
+/* Персональные фоны для страниц */
+body.page-trainers {
+    background-image: url('/images/trainers-bg.jpg');
+}
+
+body.page-schedule {
+    background-image: url('/images/schedule-bg.jpg');
+}
+
+body.page-prices {
+    background-image: url('/images/prices-bg.jpg');
+}
+
+body.page-merch {
+    background-image: url('/images/merch-bg.jpg');
+}
+
+/* Затемнение */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ========== НАВБАР ========== */
+#mainNavbar {
+    background: rgba(73, 73, 73, 0.7) !important;
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    margin: 15px auto;
+    width: calc(100% - 60px);
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    border: none;
+}
+
+.logo-image {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #00b4d8;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ========== КНОПКИ ========== */
+.btn-login-custom, .btn-register-custom {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 6px 18px;
+    font-size: 0.9rem;
+    display: inline-block;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-login-custom:hover, .btn-register-custom:hover {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    transform: translateY(-2px);
+    color: #00b4d8;
+}
+
+/* Кнопка профиля в навбаре */
+.btn-profile-custom {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 6px 18px;
+    font-size: 0.9rem;
+    display: inline-block;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-profile-custom:hover {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    transform: translateY(-2px);
+    color: #00b4d8;
+}
+
+.btn-start {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 35px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-start:hover {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    transform: translateY(-3px);
+    color: #00b4d8;
+}
+
+.btn-trainer {
+    display: inline-block;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 8px 25px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-trainer:hover {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    transform: translateY(-2px);
+    color: #00b4d8;
+}
+
+/* Кнопки авторизации (Войти / Зарегистрироваться) */
+.btn-auth {
+    width: 100%;
+    background: #00b4d8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-auth:hover {
+    background: #0096b8;
+    transform: translateY(-2px);
+}
+
+/* ========== БАННЕР — ПРИЖАТ К НИЗУ ========== */
+.banner-section {
+    height: 85vh;
+    background-size: cover;
+    background-position: center 50%;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-top: -76px;
+    width: 100%;
+}
+
+.banner-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.banner-content-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+}
+
+.banner-content {
+    text-align: center;
+    color: white;
+}
+
+.inside-logo {
+    max-width: 35%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.banner-content .lead {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ========== ПРО НАС + КАРУСЕЛЬ ========== */
+.about-carousel-section {
+    padding: 60px 0;
+}
+
+.about-carousel-section .container {
+    max-width: 1400px;
+}
+
+.about-carousel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.about-cta .btn-start {
+    padding: 18px 55px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+}
+
+.about-text-block {
+    height: 100%;
+}
+
+.about-card {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 35px 55px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-title {
+    color: #00b4d8;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.about-text {
+    color: #ffffff;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.carousel-block {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.carousel {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+}
+
+.carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 20px;
+}
+
+/* ========== ОТЗЫВЫ КАРУСЕЛЬ ========== */
+.reviews-carousel-section {
+    padding: 60px 0;
+}
+
+/* Запас вокруг карточки, чтобы при наведении подъём и обводка не обрезались */
+#reviewsCarousel .carousel-inner {
+    padding: 20px 12px;
+}
+
+.review-card-carousel {
+    background: rgba(34, 34, 34, 0.8);
+    border: 1px solid #535353;
+    border-radius: 30px;
+    padding: 40px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.review-card-carousel:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.review-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.review-user-name {
+    color: #00b4d8;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.rating {
+    color: #ffc107;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.review-text-carousel {
+    color: #ffffff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.review-date {
+    color: #aaaaaa;
+    font-size: 0.85rem;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#reviewsCarousel .carousel-control-prev,
+#reviewsCarousel .carousel-control-next {
+    width: 8%;
+    opacity: 0.7;
+}
+
+#reviewsCarousel .carousel-control-prev-icon,
+#reviewsCarousel .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 25px;
+    background-size: 50%;
+}
+
+#reviewsCarousel .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+    background-color: #00b4d8;
+}
+
+#reviewsCarousel .carousel-indicators button.active {
+    background-color: #ffffff;
+}
+
+/* ========== СОЦСЕТИ И АДРЕС ========== */
+.social-address-section {
+    padding: 60px 0;
+}
+
+.social-address-wrapper {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.social-block {
+    flex: 1;
+    min-width: 280px;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.social-block:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+}
+
+.social-block h3 {
+    color: #00b4d8;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.social-icons-large {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 20px 0;
+}
+
+.social-icon-large {
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icon-large:hover {
+    background: #00b4d8;
+    transform: translateY(-5px);
+    color: white;
+}
+
+.social-note {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.address-block-simple {
+    flex: 1;
+    min-width: 280px;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.address-block-simple:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+}
+
+.address-block-simple h3 {
+    color: #00b4d8;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.address-block-simple p {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.map-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #00b4d8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.map-link:hover {
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+/* ========== СТРАНИЦА ТРЕНЕРЫ ========== */
+.trainers-page {
+    position: relative;
+    min-height: 100vh;
+}
+
+.trainers-content {
+    position: relative;
+    z-index: 1;
+    padding: 11.5rem 0 4rem 0;
+}
+
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.trainer-card {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.trainer-img-container {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.trainer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.trainer-card:hover .trainer-img {
+    transform: scale(1.05);
+}
+
+.trainer-name-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+    padding: 1.5rem 1rem;
+}
+
+.trainer-name-overlay h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-info {
+    padding: 1.5rem;
+}
+
+.trainer-specialties {
+    color: #00b4d8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-desc {
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ========== СТРАНИЦА КАРТОЧКА ТРЕНЕРА ========== */
+.trainer-profile-page {
+    padding: 2rem 0 4rem 0;
+}
+
+.trainer-profile-card {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 30px;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.trainer-profile-left {
+    flex: 1;
+    max-width: 350px;
+}
+
+.trainer-profile-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.trainer-quote-under-img {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 180, 216, 0.1);
+    border-left: 3px solid #00b4d8;
+    border-radius: 10px;
+}
+
+.trainer-quote-under-img p {
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.trainer-profile-info {
+    flex: 2;
+}
+
+.trainer-profile-info h1 {
+    color: #00b4d8;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-specialties-block p {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-specialties-block strong {
+    color: #00b4d8;
+}
+
+.trainer-description-block p {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-social-link {
+    display: inline-block;
+    color: #00b4d8;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trainer-social-link:hover {
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.social-asterisk {
+    color: #e63946;
+    font-weight: 700;
+    margin-left: 2px;
+    vertical-align: super;
+    font-size: 0.8em;
+}
+
+.social-ban-note {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    margin: 0.3rem 0 0;
+    font-style: italic;
+}
+
+/* ========== СТРАНИЦА РАСПИСАНИЕ ========== */
+.schedule-page {
+    position: relative;
+    min-height: 100vh;
+}
+
+.schedule-page .container {
+    position: relative;
+    z-index: 1;
+    padding: 11.5rem 0 4rem 0;
+}
+
+.schedule-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+.tab-btn {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 8px;
+    padding: 8px 20px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tab-btn:hover {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    transform: translateY(-2px);
+    color: #00b4d8;
+}
+
+.tab-btn.active {
+    background: rgba(34, 34, 34, 0.85);
+    border-color: #00b4d8;
+    color: #00b4d8;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.schedule-day-list {
+    background: rgba(34, 34, 34, 0.66);
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.schedule-hall-list {
+    margin-bottom: 2rem;
+}
+
+.hall-title-list {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 4px solid #00b4d8;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.schedule-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.schedule-item {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.schedule-time {
+    font-weight: 700;
+    color: #00b4d8;
+    font-size: 1rem;
+    min-width: 60px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.schedule-info {
+    flex: 1;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.schedule-age {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.schedule-direction {
+    color: #ffffff;
+}
+
+.schedule-trainer {
+    color: #00b4d8;
+}
+
+.schedule-item.current-class {
+    background: linear-gradient(135deg, rgba(0, 180, 216, 0.2), rgba(0, 123, 255, 0.2));
+    border-left: 3px solid #00b4d8;
+    border-radius: 8px;
+    padding-left: 10px;
+    animation: pulse 2s infinite;
+}
+
+.schedule-item.current-class .schedule-time {
+    color: #00ffcc;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+}
+
+.schedule-item.current-class .schedule-trainer {
+    color: #ffc107;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 5px rgba(0, 180, 216, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 180, 216, 0);
+    }
+}
+
+/* ========== СТРАНИЦА ЦЕНЫ ========== */
+.prices-page {
+    position: relative;
+    min-height: 100vh;
+}
+
+.prices-page .container {
+    position: relative;
+    z-index: 1;
+    padding: 11.5rem 0 4rem 0;
+}
+
+.price-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: #00b4d8;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-note {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.price-card-simple {
+    background: rgba(34, 34, 34, 0.85);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.price-card-simple:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.price-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #00b4d8;
+    margin: 0.5rem 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Кнопки покупки на странице цен */
+.btn-buy-small {
+    display: inline-block;
+    background: #00b4d8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-buy-small:hover {
+    background: #0096b8;
+    transform: translateY(-2px);
+}
+
+.btn-buy-highlight {
+    display: inline-block;
+    background: #ffffff;
+    border: none;
+    border-radius: 8px;
+    color: #00b4d8;
+    padding: 10px 30px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.btn-buy-highlight:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* Специальные предложения */
+.special-offer {
+    margin-bottom: 2rem;
+}
+
+.offer-card {
+    background: #00b4d8;
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 180, 216, 0.3);
+}
+
+.offer-card:hover {
+    transform: translateY(-3px);
+    background: #0096b8;
+    box-shadow: 0 10px 25px rgba(0, 180, 216, 0.5);
+}
+
+.offer-card h4 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.offer-card p {
+    color: #ffffff;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Безлимит */
+.price-card-highlight {
+    background: #00b4d8;
+    border-radius: 25px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 180, 216, 0.3);
+}
+
+.price-card-highlight:hover {
+    transform: translateY(-5px);
+    background: #0096b8;
+    box-shadow: 0 15px 35px rgba(0, 180, 216, 0.5);
+}
+
+.price-card-highlight .price-title {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-card-highlight .price-value {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.price-card-highlight .price-desc {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.price-card-highlight .price-note {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Запись по телефону */
+.phone-order {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.phone-card {
+    background: rgba(34, 34, 34, 0.85);
+    border: 1px solid #535353;
+    border-radius: 30px;
+    padding: 2rem;
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+}
+
+.phone-card h3 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.4;
+}
+
+.phone-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00b4d8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.phone-number:hover {
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* ========== ЛИЧНЫЙ КАБИНЕТ ========== */
+.profile-page {
+    padding: 2rem 0 4rem 0;
+}
+
+.profile-info {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-info p {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.profile-info i {
+    color: #00b4d8;
+    margin-right: 10px;
+    width: 25px;
+}
+
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.booking-card {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 15px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.booking-card p {
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+}
+
+.booking-card .status {
+    background: #28a745;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.add-review-form {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #535353;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.success-message {
+    background: rgba(40, 167, 69, 0.2);
+    border: 1px solid #28a745;
+    color: #28a745;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.error-message {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* ========== ФОРМЫ ВХОДА/РЕГИСТРАЦИИ ========== */
+.auth-form {
+    padding: 2rem 0;
+}
+
+.auth-container {
+    max-width: 450px;
+    margin: 0 auto;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.auth-container h2 {
+    color: #00b4d8;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* ========== ФУТЕР ========== */
+footer {
+    background: transparent;
+    color: white;
+    padding: 20px 0 40px 0;
+    margin-top: 0;
+    border-top: none;
+    text-align: center;
+}
+
+.copyright-wrapper {
+    text-align: center;
+    padding: 0;
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+/* Убираем все линии */
+hr, .border, .border-top, .border-bottom {
+    display: none !important;
+}
+
+/* ========== НОВЫЙ ЛИЧНЫЙ КАБИНЕТ ========== */
+.profile-page-new {
+    padding: 2rem 0 4rem 0;
+}
+
+.profile-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1340px;
+    margin: 0 auto;
+}
+
+/* Боковое меню */
+.profile-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.sidebar-menu {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.sidebar-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar-btn i {
+    width: 24px;
+    font-size: 1.2rem;
+}
+
+.sidebar-btn:hover {
+    background: rgba(0, 180, 216, 0.2);
+    color: #00b4d8;
+}
+
+.sidebar-btn.active {
+    background: rgba(0, 180, 216, 0.3);
+    color: #00b4d8;
+    border-left: 3px solid #00b4d8;
+}
+
+.sidebar-btn.logout {
+    color: #ff6b6b;
+    border-top: 1px solid #535353;
+    text-decoration: none;
+}
+
+.sidebar-btn.logout:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+/* Основной контент */
+.profile-content {
+    flex: 1;
+    min-width: 0; /* позволяет flex-элементу сжиматься, иначе широкая таблица распирает блок */
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-pane h2 {
+    color: #00b4d8;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+/* Карточка профиля */
+.profile-info-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-label {
+    width: 140px;
+    font-weight: 600;
+    color: #00b4d8;
+}
+
+.info-value {
+    flex: 1;
+    color: #ffffff;
+}
+
+.info-note {
+    width: 100%;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+}
+
+/* Абонементы */
+.subscriptions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.subscription-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #00b4d8;
+}
+
+.sub-info p {
+    color: #ffffff;
+    margin: 5px 0;
+}
+
+.sub-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.sub-status.active {
+    background: #28a745;
+    color: white;
+}
+
+.sub-status.expired {
+    background: #dc3545;
+    color: white;
+}
+
+.sub-status.warning {
+    background: #dc3545;
+    color: white;
+    font-weight: 700;
+}
+
+/* Поиск клиента по ФИО */
+.sub-search-wrap {
+    margin-bottom: 1.2rem;
+}
+
+.all-subscriptions-list .admin-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Текст переносится, длинные слова ломаются — таблица всегда вписывается в блок */
+.all-subscriptions-list .admin-table th,
+.all-subscriptions-list .admin-table td {
+    padding: 12px 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    vertical-align: middle;
+}
+
+/* Сбалансированные ширины колонок (в сумме 100%) */
+.all-subscriptions-list .admin-table th:nth-child(1),
+.all-subscriptions-list .admin-table td:nth-child(1) { width: 18%; } /* Клиент */
+.all-subscriptions-list .admin-table th:nth-child(2),
+.all-subscriptions-list .admin-table td:nth-child(2) { width: 17%; } /* Абонемент */
+.all-subscriptions-list .admin-table th:nth-child(3),
+.all-subscriptions-list .admin-table td:nth-child(3) { width: 11%; } /* Осталось */
+.all-subscriptions-list .admin-table th:nth-child(4),
+.all-subscriptions-list .admin-table td:nth-child(4) { width: 8%; }  /* Посещений */
+.all-subscriptions-list .admin-table th:nth-child(5),
+.all-subscriptions-list .admin-table td:nth-child(5) { width: 13%; } /* Действует до */
+.all-subscriptions-list .admin-table th:nth-child(6),
+.all-subscriptions-list .admin-table td:nth-child(6) { width: 19%; } /* Статус */
+.all-subscriptions-list .admin-table th:nth-child(7),
+.all-subscriptions-list .admin-table td:nth-child(7) { width: 14%; } /* Действие */
+
+/* Статус-бейдж — одной строкой, в пределах своей (расширенной) колонки */
+.all-subscriptions-list .sub-status {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+/* Кнопки в таблице не должны ломаться посимвольно */
+.all-subscriptions-list .admin-table .btn-approve,
+.all-subscriptions-list .admin-table .btn-attend,
+.all-subscriptions-list .admin-table button {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+/* Адаптив: на узких экранах таблица абонементов превращается в карточки */
+@media (max-width: 992px) {
+    .all-subscriptions-list {
+        overflow-x: visible;
+    }
+
+    .all-subscriptions-list .admin-table,
+    .all-subscriptions-list .admin-table tbody,
+    .all-subscriptions-list .admin-table tr,
+    .all-subscriptions-list .admin-table td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Прячем шапку таблицы — подписи берём из data-label */
+    .all-subscriptions-list .admin-table thead {
+        display: none;
+    }
+
+    .all-subscriptions-list .admin-table tr {
+        background: rgba(34, 34, 34, 0.66);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 0.6rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .all-subscriptions-list .admin-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0;
+        white-space: normal;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: right;
+    }
+
+    .all-subscriptions-list .admin-table td:last-child {
+        border-bottom: none;
+    }
+
+    /* Подпись поля слева из атрибута data-label */
+    .all-subscriptions-list .admin-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #00b4d8;
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    /* Подсветка «заканчивается» — рамкой по всей карточке */
+    .all-subscriptions-list .admin-table tr.sub-row-warning {
+        box-shadow: inset 0 0 0 2px #dc3545;
+    }
+}
+
+.sub-search-input {
+    width: 100%;
+    max-width: 420px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 1px solid #535353;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+}
+
+.sub-search-input:focus {
+    outline: none;
+    border-color: #00b4d8;
+    box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.25);
+}
+
+/* Подсветка строки абонемента, который скоро закончится */
+.sub-row-warning {
+    background: rgba(220, 53, 69, 0.16) !important;
+    box-shadow: inset 3px 0 0 #dc3545;
+}
+
+.days-left {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+}
+
+.btn-attend {
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Отзывы */
+.add-review-section {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.add-review-section h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.my-reviews-list h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.review-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-item .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.review-item .rating {
+    font-size: 1rem;
+}
+
+.review-item p {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.review-status {
+    font-size: 0.8rem;
+}
+
+.review-status.approved {
+    color: #28a745;
+}
+
+.review-status.pending {
+    color: #ffc107;
+}
+
+/* Формы */
+.profile-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.profile-form .form-group label {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.profile-form .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #535353;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Админ-таблицы */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table th {
+    color: #00b4d8;
+    font-weight: 600;
+}
+
+/* ========== АДМИН-СТРАНИЦЫ ========== */
+.admin-page {
+    min-height: 100vh;
+    padding: 3rem 0 4rem 0;
+}
+
+.admin-page .container {
+    max-width: 1000px;
+}
+
+.admin-page h2 {
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.admin-page h3 {
+    color: #00b4d8;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+}
+
+/* Админ-форма */
+.admin-form {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    flex: 1 1 200px;
+    min-width: 180px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #535353;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+}
+
+.admin-form textarea {
+    flex-basis: 100%;
+    min-height: 90px;
+    resize: vertical;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    outline: none;
+    border-color: #00b4d8;
+    box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.25);
+}
+
+.admin-form .btn {
+    flex: 0 0 auto;
+    background: #00b4d8;
+    color: #ffffff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-form .btn:hover {
+    background: #0096b8;
+    transform: translateY(-2px);
+}
+
+/* Таблица в карточке */
+.admin-page .admin-table {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.admin-page .admin-table th,
+.admin-page .admin-table td {
+    padding: 14px 16px;
+    vertical-align: middle;
+}
+
+.admin-page .admin-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.admin-page .admin-table tbody tr:hover {
+    background: rgba(0, 180, 216, 0.08);
+}
+
+.admin-page .admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table .btn-delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+}
+
+/* Список тренеров */
+.trainers-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.trainer-item {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trainer-item strong {
+    color: #00b4d8;
+    font-size: 1.15rem;
+}
+
+.trainer-item p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.trainer-item-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+}
+
+.trainer-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.6rem;
+}
+
+.trainer-current-photo {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+}
+
+.trainer-current-photo img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ===== Управление главной (admin/home) ===== */
+.admin-hint {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.88rem;
+    margin-bottom: 0.75rem;
+}
+
+.admin-hint code {
+    color: #00b4d8;
+}
+
+.blocks-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.block-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+.block-row.block-hidden {
+    opacity: 0.55;
+}
+
+.block-name {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.block-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-move,
+.btn-toggle {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-move {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    min-width: 34px;
+}
+
+.btn-move:hover:not(:disabled) {
+    background: #00b4d8;
+}
+
+.btn-move:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btn-toggle.on {
+    background: #28a745;
+    color: #ffffff;
+}
+
+.btn-toggle.off {
+    background: #6c757d;
+    color: #ffffff;
+}
+
+.content-form {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-form .field {
+    margin-bottom: 1rem;
+}
+
+.content-form .field label {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+}
+
+.content-form input,
+.content-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #535353;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+}
+
+.content-form textarea {
+    resize: vertical;
+}
+
+.content-form input:focus,
+.content-form textarea:focus {
+    outline: none;
+    border-color: #00b4d8;
+    box-shadow: 0 0 0 2px rgba(0, 180, 216, 0.25);
+}
+
+.admin-home .btn {
+    background: #00b4d8;
+    color: #ffffff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-home .btn:hover {
+    background: #0096b8;
+    transform: translateY(-2px);
+}
+
+.admin-video-preview {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.home-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.home-image-item {
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.home-image-item img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.home-image-item .btn-delete {
+    width: 100%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* Адаптивность админ-страниц */
+@media (max-width: 768px) {
+    .admin-form {
+        flex-direction: column;
+    }
+
+    .admin-form .btn {
+        width: 100%;
+    }
+
+    .admin-page .admin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.review-manage-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-manage-item .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.review-manage-item .review-header strong {
+    color: #00b4d8;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.review-manage-item .review-header small {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+}
+
+.review-manage-item p {
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.review-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-approve {
+    background: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-approve:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: #333;
+    padding: 5px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-edit:hover {
+    background: #e0a800;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
+.schedule-row-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.schedule-empty {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 1.1rem;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.approved-badge {
+    background: #28a745;
+    padding: 5px 15px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: white;
+}
+
+/* Страница редактирования отзыва */
+.edit-review-page {
+    padding: 2rem 0 4rem 0;
+}
+
+.edit-review-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.edit-review-container h2 {
+    color: #00b4d8;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.review-info {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-info p {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.edit-review-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.edit-review-form .form-group label {
+    color: #ffffff;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* ========== СТРАНИЦА ОПЛАТЫ ========== */
+.payment-page {
+    padding: 2rem 0 4rem 0;
+}
+
+.payment-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(34, 34, 34, 0.66);
+    border: 1px solid #535353;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.payment-container h2 {
+    color: #00b4d8;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.payment-info .subscription-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.payment-info .subscription-info h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.payment-info .subscription-info .price {
+    color: #00b4d8;
+    font-size: 1.2rem;
+}
+
+/* Форма оплаты */
+.payment-form h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-method {
+    cursor: pointer;
+}
+
+.payment-method input {
+    display: none;
+}
+
+.payment-method input:checked + .method-card {
+    border-color: #00b4d8;
+    background: rgba(0, 180, 216, 0.2);
+}
+
+.method-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #535353;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.method-card i {
+    font-size: 1.5rem;
+    color: #00b4d8;
+}
+
+.method-card span {
+    color: #ffffff;
+    flex: 1;
+}
+
+.card-icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.card-icons i {
+    font-size: 1.2rem;
+    color: #ffffff;
+    opacity: 0.7;
+}
+
+.method-badge {
+    background: #28a745;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.card-details {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-details h4 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.btn-pay {
+    width: 100%;
+    background: #28a745;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-pay:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+/* Анимация обработки платежа */
+.payment-processing {
+    text-align: center;
+}
+
+.processing-animation {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #00b4d8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.processing-animation p {
+    color: #ffffff;
+}
+
+/* ============================================ */
+/* МЕРЧ                                          */
+/* ============================================ */
+.merch-page .container {
+    padding: 11.5rem 0 4rem 0;
+}
+
+.merch-title {
+    color: #ffffff;
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.merch-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.merch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    align-items: start;
+}
+
+.merch-card {
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.merch-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.merch-card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #111;
+    overflow: hidden;
+}
+
+.merch-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.merch-noimg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.merch-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.merch-name {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.merch-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.merch-price {
+    color: #00b4d8;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.merch-order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.merch-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    margin-bottom: -0.2rem;
+}
+
+.merch-select,
+.merch-input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    color: #ffffff;
+    width: 100%;
+}
+
+.merch-select option {
+    background: #1a1a1a;
+}
+
+.merch-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    cursor: pointer;
+}
+
+.merch-checkbox input {
+    width: auto;
+}
+
+.merch-buy-btn {
+    margin-top: 0.8rem;
+    background: #00b4d8;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.merch-buy-btn:hover {
+    background: #0096b5;
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.merch-login-btn {
+    display: block;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.merch-empty {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.merch-order-summary {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.8rem 0;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.merch-order-summary li {
+    padding: 3px 0;
+}
+
+/* ===== Заказы мерча в профиле ===== */
+.merch-order-card {
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid #00b4d8;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.merch-order-card.ready {
+    border-left-color: #28a745;
+}
+
+.merch-order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.merch-order-head strong {
+    color: #ffffff;
+    font-size: 1.15rem;
+}
+
+.merch-order-total {
+    color: #00b4d8;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.merch-order-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.merch-order-date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+}
+
+.merch-order-status {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.merch-order-status.in-work {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+
+.merch-order-status.ready {
+    background: rgba(40, 167, 69, 0.2);
+    color: #38d66b;
+}
+
+.merch-status-form {
+    margin-top: 0.8rem;
+}
+
+/* ===== Админка товаров мерча ===== */
+.merch-add-form {
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+}
+
+.merch-add-form .field {
+    flex: 1 1 100%;
+    margin-bottom: 0.25rem;
+}
+
+.merch-add-form .field label {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+}
+
+.admin-merch .admin-hint,
+.admin-merch .admin-hint code {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.merch-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.merch-admin-item {
+    background: rgba(20, 20, 20, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.merch-admin-item.block-hidden {
+    opacity: 0.5;
+}
+
+.merch-admin-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #111;
+}
+
+.merch-admin-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.merch-admin-info {
+    padding: 0.8rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.merch-admin-info strong {
+    color: #ffffff;
+}
+
+.merch-admin-price {
+    color: #00b4d8;
+    font-weight: 700;
+}
+
+.merch-admin-info small {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.merch-admin-actions {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 1rem 1rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 992px) {
+    .merch-page .container {
+        padding-top: 8.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .merch-page .container {
+        padding: 6rem 0 2rem 0;
+    }
+    .merch-title {
+        font-size: 2rem;
+    }
+}
+
+.payment-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.step-status {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.step-text {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.payment-result {
+    text-align: center;
+}
+
+.payment-result .success-icon {
+    width: 80px;
+    height: 80px;
+    background: #28a745;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    margin: 0 auto 1rem;
+}
+
+.payment-result h3 {
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.payment-result p {
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-outline {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #535353;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    border-color: #00b4d8;
+    color: #00b4d8;
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 992px) {
+    .about-carousel-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .carousel-inner img {
+        height: 280px;
+    }
+    
+    .trainer-profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .trainer-profile-left {
+        max-width: 280px;
+    }
+    
+    .trainer-quote-under-img {
+        text-align: center;
+    }
+    
+    .price-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .trainers-content,
+    .prices-page .container,
+    .schedule-page .container {
+        padding-top: 8.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 66px;
+    }
+    
+    .banner-section {
+        height: 70vh;
+        margin-top: -66px;
+    }
+    
+    .banner-content .lead {
+        font-size: 1rem;
+    }
+    
+    .banner-content-wrapper {
+        bottom: 15px;
+    }
+    
+    .inside-logo {
+        max-width: 45%;
+    }
+    
+    .about-card {
+        padding: 20px;
+        margin: 0 15px;
+    }
+    
+    .about-title {
+        font-size: 1.5rem;
+    }
+    
+    .about-text {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-inner img {
+        height: 220px;
+    }
+    
+    .carousel-block {
+        padding: 0;
+        margin: 0 15px;
+    }
+    
+    .reviews-carousel-section {
+        padding: 40px 0;
+    }
+    
+    .review-card-carousel {
+        padding: 20px;
+        margin: 0 15px;
+    }
+    
+    .review-user-name {
+        font-size: 1rem;
+    }
+    
+    .rating {
+        font-size: 0.9rem;
+    }
+    
+    .review-text-carousel {
+        font-size: 0.9rem;
+    }
+    
+    .social-address-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .social-icon-large {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .social-icons-large {
+        gap: 15px;
+    }
+    
+    .logo-image {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .trainers-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 15px;
+    }
+    
+    .trainer-name-overlay h3 {
+        font-size: 1.2rem;
+    }
+    
+    .trainer-profile-info h1 {
+        font-size: 1.5rem;
+    }
+    
+    .schedule-page .container,
+    .prices-page .container {
+        padding: 6rem 0 2rem 0;
+    }
+
+    .trainers-content {
+        padding: 6rem 0 2rem 0;
+    }
+    
+    .schedule-day-list {
+        padding: 1rem;
+        margin: 0 15px;
+    }
+    
+    .hall-title-list {
+        font-size: 1.1rem;
+    }
+    
+    .schedule-item {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .schedule-time {
+        margin-bottom: 0.3rem;
+    }
+    
+    .tab-btn {
+        padding: 6px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .schedule-tabs {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .price-card-simple {
+        padding: 1rem;
+        margin: 0 15px;
+    }
+    
+    .price-value {
+        font-size: 1.5rem;
+    }
+    
+    .phone-number {
+        font-size: 1.4rem;
+    }
+    
+    .phone-card {
+        padding: 1rem;
+        margin: 0 15px;
+    }
+    
+    .phone-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    /* Адаптация нового личного кабинета */
+    .profile-layout {
+        flex-direction: column;
+    }
+    
+    .profile-sidebar {
+        width: 100%;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .sidebar-btn {
+        width: auto;
+        flex: 1;
+        justify-content: center;
+    }
+    
+    .info-row {
+        flex-direction: column;
+    }
+    
+    .info-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    /* Адаптация оплаты */
+    .form-row {
+        flex-direction: column;
+    }
+    
+    /* Адаптация кнопок управления отзывами */
+    .review-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* При скролле */
+#mainNavbar.navbar-scrolled {
+    background: rgba(73, 73, 73, 0.9) !important;
+    padding: 0.3rem 1.5rem;
+    box-shadow: none;
+}
+
+/* ============================================ */
+/* МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ                  */
+/* ============================================ */
+.confirm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    padding: 1rem;
+}
+
+.confirm-modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirm-modal {
+    background: #1f1f1f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 2rem 2rem 1.5rem;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px) scale(0.96);
+    transition: transform 0.25s ease;
+}
+
+.confirm-modal-overlay.open .confirm-modal {
+    transform: translateY(0) scale(1);
+}
+
+.confirm-modal-icon {
+    font-size: 2.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.confirm-modal-title {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+.confirm-modal-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.6rem;
+}
+
+.confirm-modal-actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+}
+
+.confirm-modal-btn {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.confirm-modal-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.confirm-modal-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-modal-btn.confirm {
+    background: #e63946;
+    color: #ffffff;
+}
+
+.confirm-modal-btn.confirm:hover {
+    background: #c92f3c;
+    transform: translateY(-2px);
+}

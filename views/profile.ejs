@@ -1,0 +1,523 @@
+<%- include('partials/header', { currentPage: 'profile' }) %>
+
+<section class="profile-page-new">
+    <div class="container">
+        <div class="profile-layout">
+            <!-- БОКОВОЕ МЕНЮ -->
+            <aside class="profile-sidebar">
+                <div class="sidebar-menu">
+                    <button class="sidebar-btn active" data-tab="profile">
+                        <i class="fas fa-user-circle"></i> Профиль
+                    </button>
+                    
+                    <!-- Для обычного пользователя -->
+                    <% if (user.role !== 'admin') { %>
+                        <button class="sidebar-btn" data-tab="subscriptions">
+                            <i class="fas fa-ticket-alt"></i> Мои абонементы
+                        </button>
+                        <button class="sidebar-btn" data-tab="reviews">
+                            <i class="fas fa-star"></i> Мои отзывы
+                        </button>
+                        <button class="sidebar-btn" data-tab="merch-orders">
+                            <i class="fas fa-shopping-bag"></i> Мои заказы мерча
+                        </button>
+                    <% } %>
+                    
+                    <!-- Для администратора -->
+                    <% if (user.role === 'admin') { %>
+                        <button class="sidebar-btn" data-tab="manage-reviews">
+                            <i class="fas fa-comments"></i> Управление отзывами
+                        </button>
+                        <button class="sidebar-btn" data-tab="all-subscriptions">
+                            <i class="fas fa-list"></i> Абонементы пользователей
+                        </button>
+                        <button class="sidebar-btn" data-tab="manage-merch">
+                            <i class="fas fa-shopping-bag"></i> Заказы мерча
+                        </button>
+                        <a href="/admin" class="sidebar-btn">
+                            <i class="fas fa-shield-alt"></i> Админ-панель
+                        </a>
+                    <% } %>
+                    
+                    <button class="sidebar-btn" data-tab="change-data">
+                        <i class="fas fa-edit"></i> Изменить данные
+                    </button>
+                    <button class="sidebar-btn" data-tab="change-password">
+                        <i class="fas fa-key"></i> Изменить пароль
+                    </button>
+                    <a href="/logout" class="sidebar-btn logout">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </a>
+                </div>
+            </aside>
+
+            <!-- ОСНОВНОЙ КОНТЕНТ -->
+            <div class="profile-content">
+                <!-- Вкладка ПРОФИЛЬ -->
+                <div id="tab-profile" class="tab-pane active">
+                    <h2>Профиль</h2>
+                    
+                    <% if (typeof success !== 'undefined' && success) { %>
+                        <div class="success-message">✅ Регистрация успешно завершена!</div>
+                    <% } %>
+                    <% if (typeof update_success !== 'undefined' && update_success) { %>
+                        <div class="success-message">✅ Данные успешно обновлены!</div>
+                    <% } %>
+                    
+                    <div class="profile-info-card">
+                        <div class="info-row">
+                            <span class="info-label">ФИО:</span>
+                            <span class="info-value"><%= user.name || 'Не указано' %></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value"><%= user.email || 'Не указан' %></span>
+                            <span class="info-note">Email нельзя изменить</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Телефон:</span>
+                            <span class="info-value"><%= user.phone %></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата регистрации:</span>
+                            <span class="info-value"><%= new Date(user.created_at).toLocaleDateString('ru-RU') %></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка МОИ АБОНЕМЕНТЫ (только для пользователя) -->
+                <% if (user.role !== 'admin') { %>
+                <div id="tab-subscriptions" class="tab-pane">
+                    <h2>Мои абонементы</h2>
+                    <div class="subscriptions-list">
+                        <% if (typeof subscriptions !== 'undefined' && subscriptions && subscriptions.length > 0) { %>
+                            <% subscriptions.forEach(sub => { %>
+                                <div class="subscription-card">
+                                    <div class="sub-title"><%= sub.name %></div>
+                                    <div class="sub-info">
+                                        <% if (sub.total_classes > 0) { %>
+                                            <p>Осталось занятий: <strong><%= sub.remaining_classes %></strong> из <%= sub.total_classes %></p>
+                                        <% } else { %>
+                                            <p>Безлимитный абонемент</p>
+                                        <% } %>
+                                        <p>Действует до: <%= new Date(sub.valid_until).toLocaleDateString('ru-RU') %></p>
+                                    </div>
+                                    <span class="sub-status <%= sub.is_active ? 'active' : 'expired' %>">
+                                        <%= sub.is_active ? 'Активен' : 'Истёк' %>
+                                    </span>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>У вас пока нет абонементов</p>
+                            <a href="/prices" class="btn-start">Купить абонемент</a>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Вкладка МОИ ОТЗЫВЫ (только для пользователя) -->
+                <div id="tab-reviews" class="tab-pane">
+                    <h2>Мои отзывы</h2>
+                    
+                    <div class="add-review-section">
+                        <h3>Написать отзыв</h3>
+                        <form action="/reviews/add" method="POST">
+                            <div class="form-group">
+                                <label>Оценка</label>
+                                <select name="rating" class="form-control" required>
+                                    <option value="5">★★★★★ (5 - Отлично)</option>
+                                    <option value="4">★★★★☆ (4 - Хорошо)</option>
+                                    <option value="3">★★★☆☆ (3 - Средне)</option>
+                                    <option value="2">★★☆☆☆ (2 - Плохо)</option>
+                                    <option value="1">★☆☆☆☆ (1 - Ужасно)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Ваш отзыв</label>
+                                <textarea name="text" class="form-control" rows="4" required placeholder="Расскажите о своих впечатлениях..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-start">Отправить отзыв</button>
+                        </form>
+                    </div>
+                    
+                    <div class="my-reviews-list">
+                        <h3>Мои отзывы</h3>
+                        <% if (typeof userReviews !== 'undefined' && userReviews && userReviews.length > 0) { %>
+                            <% userReviews.forEach(review => { %>
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <div class="rating">
+                                            <%= '★'.repeat(review.rating) %><%= '☆'.repeat(5-review.rating) %>
+                                        </div>
+                                        <small><%= new Date(review.created_at).toLocaleDateString('ru-RU') %></small>
+                                    </div>
+                                    <p><%= review.text %></p>
+                                    <span class="review-status <%= review.is_approved ? 'approved' : 'pending' %>">
+                                        <% if (review.is_approved) { %>
+                                            ✓ Одобрен
+                                        <% } else { %>
+                                            ⏳ На модерации
+                                        <% } %>
+                                    </span>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>Вы ещё не оставляли отзывы</p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Вкладка МОИ ЗАКАЗЫ МЕРЧА (только для пользователя) -->
+                <div id="tab-merch-orders" class="tab-pane">
+                    <h2>Мои заказы мерча</h2>
+
+                    <% if (typeof merch_success !== 'undefined' && merch_success) { %>
+                        <div class="success-message">✅ Заказ оформлен! Мы начали готовить ваш мерч.</div>
+                    <% } %>
+
+                    <div class="merch-orders-list">
+                        <% if (typeof merchOrders !== 'undefined' && merchOrders && merchOrders.length > 0) { %>
+                            <% merchOrders.forEach(order => { %>
+                                <div class="merch-order-card <%= order.status === 'ready' ? 'ready' : '' %>">
+                                    <div class="merch-order-head">
+                                        <strong><%= order.product_name %></strong>
+                                        <span class="merch-order-total"><%= order.total_price %> ₽</span>
+                                    </div>
+                                    <div class="merch-order-meta">
+                                        <% if (order.color) { %><span>Цвет: <%= order.color %></span><% } %>
+                                        <% if (order.size) { %><span>Размер: <%= order.size %></span><% } %>
+                                        <% if (order.custom_name) { %><span>Имя: <%= order.custom_name %></span><% } %>
+                                    </div>
+                                    <div class="merch-order-date">
+                                        Оформлен: <%= new Date(order.created_at).toLocaleDateString('ru-RU') %>
+                                    </div>
+                                    <% if (order.status === 'ready') { %>
+                                        <div class="merch-order-status ready">
+                                            🎉 Готов к выдаче — можно забирать!
+                                        </div>
+                                    <% } else { %>
+                                        <div class="merch-order-status in-work">
+                                            ⏳ В работе
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>У вас пока нет заказов мерча</p>
+                            <a href="/merch" class="btn-start">Перейти в магазин</a>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+
+                <!-- Вкладка УПРАВЛЕНИЕ ОТЗЫВАМИ (только для админа) -->
+                <% if (user.role === 'admin') { %>
+                <div id="tab-manage-reviews" class="tab-pane">
+                    <h2>Управление отзывами</h2>
+                    
+                    <% if (typeof edit_success !== 'undefined' && edit_success) { %>
+                        <div class="success-message">✅ Отзыв успешно отредактирован!</div>
+                    <% } %>
+                    
+                    <div class="reviews-manage-list">
+                        <% if (typeof allReviews !== 'undefined' && allReviews && allReviews.length > 0) { %>
+                            <% allReviews.forEach(review => { %>
+                                <div class="review-manage-item">
+                                    <div class="review-header">
+                                        <strong><%= review.user_name %></strong>
+                                        <div class="rating">
+                                            <%= '★'.repeat(review.rating) %><%= '☆'.repeat(5-review.rating) %>
+                                        </div>
+                                        <small><%= new Date(review.created_at).toLocaleDateString('ru-RU') %></small>
+                                    </div>
+                                    <p><%= review.text %></p>
+                                    <div class="review-actions">
+                                        <% if (!review.is_approved) { %>
+                                            <a href="/admin/approve-review/<%= review.id %>" class="btn-approve">✓ Одобрить</a>
+                                        <% } else { %>
+                                            <span class="approved-badge">✓ Одобрен</span>
+                                        <% } %>
+                                        <a href="/admin/edit-review/<%= review.id %>" class="btn-edit">✎ Редактировать</a>
+                                        <a href="/admin/delete-review/<%= review.id %>" class="btn-delete js-delete-review" data-author="<%= review.user_name || '' %>">✗ Удалить</a>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>Нет отзывов для модерации</p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Вкладка ВСЕ АБОНЕМЕНТЫ (только для админа) -->
+                <div id="tab-all-subscriptions" class="tab-pane">
+                    <h2>Абонементы пользователей</h2>
+
+                    <% if (typeof attend_success !== 'undefined' && attend_success) { %>
+                        <div class="success-message">✅ Посещение отмечено!</div>
+                    <% } %>
+                    <% if (typeof attend_error !== 'undefined' && attend_error) { %>
+                        <div class="error-message">❌ Не удалось отметить посещение (занятия закончились).</div>
+                    <% } %>
+
+                    <div class="sub-search-wrap">
+                        <input type="text" id="subSearch" class="sub-search-input" placeholder="🔍 Поиск клиента по ФИО...">
+                    </div>
+
+                    <div class="all-subscriptions-list">
+                        <% if (typeof allSubscriptions !== 'undefined' && allSubscriptions && allSubscriptions.length > 0) { %>
+                            <table class="admin-table" id="subsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Клиент</th>
+                                        <th>Абонемент</th>
+                                        <th>Осталось</th>
+                                        <th>Посещений</th>
+                                        <th>Действует до</th>
+                                        <th>Статус</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% allSubscriptions.forEach(sub => {
+                                        const isLimited = sub.total_classes > 0;
+                                        const validUntil = new Date(sub.valid_until);
+                                        const daysLeft = Math.ceil((validUntil - new Date()) / (1000 * 60 * 60 * 24));
+                                        const lowClasses = isLimited && sub.remaining_classes <= 3;
+                                        const lowDays = daysLeft <= 3;
+                                        const expired = !sub.is_active || daysLeft < 0 || (isLimited && sub.remaining_classes <= 0);
+                                        const warning = !expired && (lowClasses || lowDays);
+                                    %>
+                                        <tr class="sub-row <%= warning ? 'sub-row-warning' : '' %>" data-client="<%= (sub.user_name || '').toLowerCase() %>">
+                                            <td data-label="Клиент"><%= sub.user_name %></td>
+                                            <td data-label="Абонемент"><%= sub.name %></td>
+                                            <td data-label="Осталось">
+                                                <% if (isLimited) { %>
+                                                    <%= sub.remaining_classes %> из <%= sub.total_classes %> зан.
+                                                <% } else { %>
+                                                    <%= daysLeft > 0 ? daysLeft + ' дн.' : 'истёк' %>
+                                                <% } %>
+                                            </td>
+                                            <td data-label="Посещений"><%= sub.visits || 0 %></td>
+                                            <td data-label="Действует до"><%= validUntil.toLocaleDateString('ru-RU') %><% if (!isLimited && daysLeft >= 0) { %> <span class="days-left">(<%= daysLeft %> дн.)</span><% } %></td>
+                                            <td data-label="Статус">
+                                                <% if (expired) { %>
+                                                    <span class="sub-status expired">Истёк</span>
+                                                <% } else if (warning) { %>
+                                                    <span class="sub-status warning">⚠ Заканчивается</span>
+                                                <% } else { %>
+                                                    <span class="sub-status active">Активен</span>
+                                                <% } %>
+                                            </td>
+                                            <td data-label="Действие">
+                                                <% if (!expired) { %>
+                                                    <form action="/admin/subscription/<%= sub.id %>/attend" method="POST" style="display:inline">
+                                                        <button type="submit" class="btn-approve btn-attend">✓ Отметить</button>
+                                                    </form>
+                                                <% } else { %>
+                                                    —
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                            <p class="sub-no-results" style="display:none;">Клиент не найден</p>
+                        <% } else { %>
+                            <p>Нет приобретённых абонементов</p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Вкладка ЗАКАЗЫ МЕРЧА (только для админа) -->
+                <div id="tab-manage-merch" class="tab-pane">
+                    <h2>Заказы мерча</h2>
+                    <p class="admin-hint"><a href="/admin/merch" class="btn-edit">⚙ Управление товарами</a></p>
+
+                    <div class="merch-manage-list">
+                        <% if (typeof allMerchOrders !== 'undefined' && allMerchOrders && allMerchOrders.length > 0) { %>
+                            <% allMerchOrders.forEach(order => { %>
+                                <div class="merch-order-card <%= order.status === 'ready' ? 'ready' : '' %>">
+                                    <div class="merch-order-head">
+                                        <strong><%= order.product_name %></strong>
+                                        <span class="merch-order-total"><%= order.total_price %> ₽</span>
+                                    </div>
+                                    <div class="merch-order-meta">
+                                        <span>Клиент: <%= order.user_name || '—' %> (<%= order.user_phone %>)</span>
+                                        <% if (order.color) { %><span>Цвет: <%= order.color %></span><% } %>
+                                        <% if (order.size) { %><span>Размер: <%= order.size %></span><% } %>
+                                        <% if (order.custom_name) { %><span>Имя: <%= order.custom_name %></span><% } %>
+                                    </div>
+                                    <div class="merch-order-date">
+                                        Оформлен: <%= new Date(order.created_at).toLocaleDateString('ru-RU') %>
+                                    </div>
+                                    <div class="merch-order-status <%= order.status === 'ready' ? 'ready' : 'in-work' %>">
+                                        <%= order.status === 'ready' ? '🎉 Готов к выдаче' : '⏳ В работе' %>
+                                    </div>
+                                    <form action="/admin/merch/order/<%= order.id %>/status" method="POST" class="merch-status-form">
+                                        <% if (order.status === 'ready') { %>
+                                            <input type="hidden" name="status" value="in_work">
+                                            <button type="submit" class="btn-edit">↩ Вернуть в работу</button>
+                                        <% } else { %>
+                                            <input type="hidden" name="status" value="ready">
+                                            <button type="submit" class="btn-approve">✓ Можно забирать</button>
+                                        <% } %>
+                                    </form>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>Заказов мерча пока нет</p>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+
+                <!-- Вкладка ИЗМЕНИТЬ ДАННЫЕ -->
+                <div id="tab-change-data" class="tab-pane">
+                    <h2>Изменить данные</h2>
+                    <% const np = (user.name || '').trim().split(/\s+/); %>
+                    <form action="/profile/update" method="POST" class="profile-form">
+                        <div class="form-group">
+                            <label>Фамилия</label>
+                            <input type="text" name="last_name" class="form-control" value="<%= user.last_name || np[0] || '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input type="text" name="first_name" class="form-control" value="<%= user.first_name || np[1] || '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Отчество</label>
+                            <input type="text" name="middle_name" class="form-control" value="<%= user.middle_name || np[2] || '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" name="phone" class="form-control" value="<%= user.phone %>">
+                        </div>
+                        <button type="submit" class="btn-start">Сохранить изменения</button>
+                    </form>
+                </div>
+
+                <!-- Вкладка ИЗМЕНИТЬ ПАРОЛЬ -->
+                <div id="tab-change-password" class="tab-pane">
+                    <h2>Изменить пароль</h2>
+                    <% if (typeof password_success !== 'undefined' && password_success) { %>
+                        <div class="success-message">✅ Пароль успешно изменён!</div>
+                    <% } %>
+                    <% if (typeof password_error !== 'undefined' && password_error == 1) { %>
+                        <div class="error-message">❌ Новые пароли не совпадают</div>
+                    <% } %>
+                    <% if (typeof password_error !== 'undefined' && password_error == 2) { %>
+                        <div class="error-message">❌ Неверный текущий пароль</div>
+                    <% } %>
+                    <form action="/profile/change-password" method="POST" class="profile-form">
+                        <div class="form-group">
+                            <label>Текущий пароль</label>
+                            <input type="password" name="current_password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Новый пароль</label>
+                            <input type="password" name="new_password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Повторите новый пароль</label>
+                            <input type="password" name="confirm_password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn-start">Изменить пароль</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Модальное окно подтверждения удаления -->
+<div class="confirm-modal-overlay" id="deleteModal">
+    <div class="confirm-modal">
+        <div class="confirm-modal-icon">🗑️</div>
+        <h3 class="confirm-modal-title">Удалить отзыв?</h3>
+        <p class="confirm-modal-text" id="deleteModalText">Это действие нельзя отменить.</p>
+        <div class="confirm-modal-actions">
+            <button type="button" class="confirm-modal-btn cancel" onclick="closeDeleteModal()">Отмена</button>
+            <a href="#" class="confirm-modal-btn confirm" id="deleteModalConfirm">Удалить</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('logout')) return;
+            
+            const tabId = btn.getAttribute('data-tab');
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        });
+    });
+
+    // Открыть нужную вкладку по параметру ?tab=...
+    (function () {
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab');
+        if (!tab) return;
+        const btn = document.querySelector(`.sidebar-btn[data-tab="${tab}"]`);
+        const pane = document.getElementById(`tab-${tab}`);
+        if (btn && pane) {
+            document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            pane.classList.add('active');
+        }
+    })();
+
+    // Поиск клиента по ФИО в разделе абонементов
+    (function () {
+        const input = document.getElementById('subSearch');
+        if (!input) return;
+        const noResults = document.querySelector('.sub-no-results');
+        input.addEventListener('input', () => {
+            const q = input.value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#subsTable .sub-row');
+            let visible = 0;
+            rows.forEach(row => {
+                const name = row.getAttribute('data-client') || '';
+                const match = name.includes(q);
+                row.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+        });
+    })();
+
+    // Модальное окно подтверждения удаления отзыва
+    function openDeleteModal(url, authorName) {
+        const modal = document.getElementById('deleteModal');
+        const confirmBtn = document.getElementById('deleteModalConfirm');
+        const text = document.getElementById('deleteModalText');
+        confirmBtn.href = url;
+        text.textContent = authorName
+            ? 'Отзыв пользователя «' + authorName + '» будет удалён без возможности восстановления.'
+            : 'Это действие нельзя отменить.';
+        modal.classList.add('open');
+    }
+
+    document.querySelectorAll('.js-delete-review').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            openDeleteModal(link.href, link.dataset.author || '');
+        });
+    });
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').classList.remove('open');
+    }
+
+    // Закрытие по клику на фон и по Esc
+    document.getElementById('deleteModal').addEventListener('click', e => {
+        if (e.target.id === 'deleteModal') closeDeleteModal();
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeDeleteModal();
+    });
+</script>
+
+<%- include('partials/footer') %>

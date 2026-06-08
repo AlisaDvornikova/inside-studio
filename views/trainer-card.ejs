@@ -1,0 +1,63 @@
+<%- include('partials/header', { currentPage: 'trainer' }) %>
+
+<section class="trainer-profile-page">
+    <div class="container">
+        <div class="trainer-profile-card">
+            <div class="trainer-profile-left">
+                <div class="trainer-profile-img">
+                    <img src="<%= trainer.photo || '/images/logo-icon.png' %>" alt="<%= trainer.name %>">
+                </div>
+
+                <!-- Цитата под фотографией -->
+                <% if (trainer.quote) { %>
+                    <div class="trainer-quote-under-img">
+                        <p><%= trainer.quote %></p>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="trainer-profile-info">
+                <h1><%= trainer.name %></h1>
+
+                <div class="trainer-specialties-block">
+                    <% if (trainer.experience) { %>
+                        <p><strong>• опыт преподавания:</strong> <%= trainer.experience %></p>
+                    <% } %>
+                    <% if (trainer.specialties) { %>
+                        <p><strong>• направления:</strong> <%= trainer.specialties %></p>
+                    <% } %>
+                    <% if (trainer.age_groups) { %>
+                        <p><strong>• группы:</strong> <%= trainer.age_groups %></p>
+                    <% } %>
+                </div>
+
+                <% if (trainer.description) { %>
+                    <div class="trainer-description-block">
+                        <p><%= trainer.description %></p>
+                    </div>
+                <% } %>
+
+                <% if (trainer.social) {
+                    // Показываем только последний сегмент ссылки (id), href остаётся полным
+                    let socialHandle = String(trainer.social).trim().replace(/\/+$/, '').split('?')[0].split('/').pop();
+                    const isInstagram = /instagram\.com/i.test(trainer.social);
+                %>
+                    <div class="trainer-social-block">
+                        <a href="<%= trainer.social %>" class="trainer-social-link" target="_blank" rel="noopener">@<%= socialHandle %><% if (isInstagram) { %><span class="social-asterisk">*</span><% } %></a>
+                        <% if (isInstagram) { %>
+                            <p class="social-ban-note">*Запрещено на территории РФ</p>
+                        <% } %>
+                    </div>
+                <% } %>
+
+                <a href="/prices" class="btn-start mt-4 d-inline-block">Записаться</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+
+
+

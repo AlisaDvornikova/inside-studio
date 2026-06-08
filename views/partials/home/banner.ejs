@@ -1,0 +1,9 @@
+<!-- Баннер -->
+<section class="banner-section">
+    <% if (content.banner_video) { %>
+        <video class="banner-video" autoplay muted loop playsinline>
+            <source src="<%= content.banner_video %>" type="video/mp4">
+        </video>
+    <% } %>
+    <div class="banner-overlay"></div>
+</section>

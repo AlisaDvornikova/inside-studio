@@ -1,0 +1,78 @@
+<%- include('partials/header', { currentPage: 'merch' }) %>
+
+<section class="merch-page">
+    <div class="container">
+        <% if (typeof products !== 'undefined' && products.length > 0) { %>
+            <div class="merch-grid">
+                <% products.forEach(product => { %>
+                    <div class="merch-card">
+                        <div class="merch-card-img">
+                            <% if (product.image) { %>
+                                <img src="<%= product.image %>" alt="<%= product.name %>">
+                            <% } else { %>
+                                <div class="merch-noimg"><i class="fas fa-tshirt"></i></div>
+                            <% } %>
+                        </div>
+                        <div class="merch-card-body">
+                            <h3 class="merch-name"><%= product.name %></h3>
+                            <p class="merch-desc"><%= product.description %></p>
+                            <div class="merch-price"><%= product.price %> ₽</div>
+
+                            <% if (user) { %>
+                                <form action="/merch/checkout" method="POST" class="merch-order-form">
+                                    <input type="hidden" name="product_id" value="<%= product.id %>">
+
+                                    <% if (product.colorList && product.colorList.length > 0) { %>
+                                        <label class="merch-label">Цвет</label>
+                                        <select name="color" class="merch-select" required>
+                                            <% product.colorList.forEach(c => { %>
+                                                <option value="<%= c %>"><%= c %></option>
+                                            <% }); %>
+                                        </select>
+                                    <% } %>
+
+                                    <% if (product.sizeList && product.sizeList.length > 0) { %>
+                                        <label class="merch-label">Размер</label>
+                                        <select name="size" class="merch-select" required>
+                                            <% product.sizeList.forEach(s => { %>
+                                                <option value="<%= s %>"><%= s %></option>
+                                            <% }); %>
+                                        </select>
+                                    <% } %>
+
+                                    <label class="merch-checkbox">
+                                        <input type="checkbox" class="merch-custom-toggle">
+                                        Добавить своё имя (+<%= customNameFee %> ₽)
+                                    </label>
+                                    <input type="text" name="custom_name" class="merch-input merch-custom-input" placeholder="Имя на товаре" maxlength="120" style="display:none;">
+
+                                    <button type="submit" class="merch-buy-btn">Купить</button>
+                                </form>
+                            <% } else { %>
+                                <a href="/login" class="merch-buy-btn merch-login-btn">Войдите, чтобы заказать</a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p class="merch-empty">Товары скоро появятся. Загляните позже!</p>
+        <% } %>
+    </div>
+</section>
+
+<script>
+    // Переключение поля ввода имени и пересчёт цены
+    document.querySelectorAll('.merch-order-form').forEach(form => {
+        const toggle = form.querySelector('.merch-custom-toggle');
+        const input = form.querySelector('.merch-custom-input');
+        if (toggle && input) {
+            toggle.addEventListener('change', () => {
+                input.style.display = toggle.checked ? 'block' : 'none';
+                if (!toggle.checked) input.value = '';
+            });
+        }
+    });
+</script>
+
+<%- include('partials/footer') %>

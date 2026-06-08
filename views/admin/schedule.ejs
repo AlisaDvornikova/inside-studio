@@ -1,0 +1,78 @@
+<%- include('../partials/header', { currentPage: 'admin' }) %>
+
+<section class="admin-page admin-schedule">
+    <div class="container">
+        <h2>Управление расписанием</h2>
+
+        <% const editing = (typeof editItem !== 'undefined' && editItem); %>
+
+        <h3><%= editing ? 'Редактировать занятие' : 'Добавить занятие' %></h3>
+        <form action="<%= editing ? '/admin/schedule/edit/' + editItem.id : '/admin/schedule/add' %>" method="POST" class="admin-form">
+            <select name="day_of_week" required>
+                <% const dayOptions = [['ПН','Понедельник'],['ВТ','Вторник'],['СР','Среда'],['ЧТ','Четверг'],['ПТ','Пятница'],['СБ','Суббота'],['ВС','Воскресенье']]; %>
+                <% dayOptions.forEach(([code, label]) => { %>
+                    <option value="<%= code %>" <%= editing && editItem.day_of_week === code ? 'selected' : '' %>><%= label %></option>
+                <% }); %>
+            </select>
+
+            <select name="hall" required>
+                <% ['1 зал','2 зал'].forEach(h => { %>
+                    <option value="<%= h %>" <%= editing && editItem.hall === h ? 'selected' : '' %>><%= h %></option>
+                <% }); %>
+            </select>
+
+            <input type="time" name="time" value="<%= editing && editItem.time ? editItem.time.substring(0,5) : '' %>" required>
+
+            <select name="direction_id" required>
+                <option value="">Выберите направление</option>
+                <% directions.forEach(dir => { %>
+                    <option value="<%= dir.id %>" <%= editing && editItem.direction_id === dir.id ? 'selected' : '' %>><%= dir.name %></option>
+                <% }); %>
+            </select>
+
+            <select name="trainer_id" required>
+                <option value="">Выберите тренера</option>
+                <% trainers.forEach(trainer => { %>
+                    <option value="<%= trainer.id %>" <%= editing && editItem.trainer_id === trainer.id ? 'selected' : '' %>><%= trainer.name %></option>
+                <% }); %>
+            </select>
+
+            <input type="number" name="max_seats" placeholder="Макс. мест" value="<%= editing ? editItem.max_seats : 15 %>">
+
+            <button type="submit" class="btn"><%= editing ? 'Сохранить' : 'Добавить' %></button>
+            <% if (editing) { %>
+                <a href="/admin/schedule" class="btn-cancel">Отмена</a>
+            <% } %>
+        </form>
+
+        <h3>Текущее расписание</h3>
+        <table class="admin-table">
+            <thead>
+                <tr><th>День</th><th>Зал</th><th>Время</th><th>Направление</th><th>Тренер</th><th>Мест</th><th></th></tr>
+            </thead>
+            <tbody>
+                <% if (schedule.length === 0) { %>
+                    <tr><td colspan="7">Расписание пусто</td></tr>
+                <% } %>
+                <% schedule.forEach(item => { %>
+                    <tr>
+                        <td><%= item.day_of_week %></td>
+                        <td><%= item.hall %></td>
+                        <td><%= item.time ? item.time.substring(0,5) : '' %></td>
+                        <td><%= item.direction_name || '—' %></td>
+                        <td><%= item.trainer_name || '—' %></td>
+                        <td><%= item.max_seats %></td>
+                        <td class="schedule-row-actions">
+                            <a href="/admin/schedule?edit=<%= item.id %>" class="btn-edit">✎</a>
+                            <form action="/admin/schedule/delete/<%= item.id %>" method="POST" style="display:inline">
+                                <button type="submit" class="btn-delete" onclick="return confirm('Удалить?')">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,28 @@
+<%- include('partials/header', { currentPage: 'booking' }) %>
+
+<section class="booking-page">
+    <div class="container">
+        <h2>Подтверждение записи</h2>
+        
+        <% if (typeof error !== 'undefined' && error) { %>
+            <div class="error-message">Ошибка при записи. Попробуйте позже</div>
+        <% } %>
+
+        <div class="booking-details">
+            <div class="class-info">
+                <h3><%= lesson.direction_name %></h3>
+                <p><strong>Тренер:</strong> <%= lesson.trainer_name %></p>
+                <p><strong>День:</strong> <%= lesson.day_of_week %></p>
+                <p><strong>Время:</strong> <%= lesson.time.substring(0,5) %></p>
+                <p><strong>Свободных мест:</strong> <%= lesson.max_seats %></p>
+            </div>
+
+            <form action="/booking/<%= lesson.id %>" method="POST">
+                <button type="submit" class="btn">Подтвердить запись</button>
+                <a href="/schedule" class="btn-cancel">Отмена</a>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

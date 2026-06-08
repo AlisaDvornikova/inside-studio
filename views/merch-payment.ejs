@@ -1,0 +1,224 @@
+<%- include('partials/header', { currentPage: 'payment' }) %>
+
+<section class="payment-page">
+    <div class="container">
+        <div class="payment-container">
+            <h2>Оформление заказа</h2>
+
+            <div class="payment-info">
+                <div class="subscription-info">
+                    <h3><%= order.product_name %></h3>
+                    <ul class="merch-order-summary">
+                        <% if (order.color) { %><li>Цвет: <strong><%= order.color %></strong></li><% } %>
+                        <% if (order.size) { %><li>Размер: <strong><%= order.size %></strong></li><% } %>
+                        <% if (order.custom_name) { %><li>Имя на товаре: <strong><%= order.custom_name %></strong> (+<%= customNameFee %> ₽)</li><% } %>
+                    </ul>
+                    <p class="price">Сумма: <strong><%= order.total.toLocaleString() %> ₽</strong></p>
+                </div>
+
+                <!-- ФОРМА ОПЛАТЫ -->
+                <div class="payment-form" id="paymentForm">
+                    <h3>Способ оплаты</h3>
+
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment_method" value="card" checked>
+                            <div class="method-card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Банковская карта</span>
+                                <div class="card-icons">
+                                    <i class="fab fa-cc-visa"></i>
+                                    <i class="fab fa-cc-mastercard"></i>
+                                    <i class="fab fa-cc-mir"></i>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment_method" value="sbp">
+                            <div class="method-card">
+                                <i class="fas fa-qrcode"></i>
+                                <span>СБП (Система быстрых платежей)</span>
+                                <span class="method-badge">Быстро</span>
+                            </div>
+                        </label>
+
+                        <label class="payment-method">
+                            <input type="radio" name="payment_method" value="google_pay">
+                            <div class="method-card">
+                                <i class="fab fa-google"></i>
+                                <span>Google Pay</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Данные карты (показываются только при выборе карты) -->
+                    <div class="card-details" id="cardDetails">
+                        <h4>Данные карты</h4>
+                        <div class="form-group">
+                            <label>Номер карты</label>
+                            <input type="text" class="form-control" placeholder="0000 0000 0000 0000" id="cardNumber" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Срок</label>
+                                <input type="text" class="form-control" placeholder="ММ/ГГ" id="cardExpiry" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVC/CVV</label>
+                                <input type="password" class="form-control" placeholder="***" id="cardCvv" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="processPayment()" class="btn-pay">Оплатить <strong><%= order.total.toLocaleString() %> ₽</strong></button>
+                </div>
+
+                <!-- Анимация обработки платежа (скрыта изначально) -->
+                <div class="payment-processing" id="paymentProcessing" style="display: none;">
+                    <div class="processing-animation">
+                        <div class="spinner"></div>
+                        <p>Обработка платежа...</p>
+                    </div>
+                    <div class="payment-steps">
+                        <div class="step" id="step1">
+                            <div class="step-status">⏳</div>
+                            <div class="step-text">Проверка данных...</div>
+                        </div>
+                        <div class="step" id="step2">
+                            <div class="step-status">⏳</div>
+                            <div class="step-text">Обработка платежа...</div>
+                        </div>
+                        <div class="step" id="step3">
+                            <div class="step-status">⏳</div>
+                            <div class="step-text">Оформление заказа...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-result" id="paymentResult" style="display: none;">
+                    <div class="success-icon">✓</div>
+                    <h3>Успешно!</h3>
+                    <p>Заказ оформлен! Мы начали готовить ваш мерч.</p>
+                    <div class="payment-buttons">
+                        <a href="/profile?tab=merch-orders" class="btn-start">Мои заказы мерча</a>
+                        <a href="/merch" class="btn-outline">Вернуться в магазин</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const order = <%- JSON.stringify(order) %>;
+
+    // Форматирование номера карты (добавляет пробелы каждые 4 цифры)
+    const cardNumberInput = document.getElementById('cardNumber');
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            if (value.length > 16) value = value.slice(0, 16);
+            let formatted = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) formatted += ' ';
+                formatted += value[i];
+            }
+            e.target.value = formatted;
+        });
+    }
+
+    // Форматирование срока карты (ММ/ГГ)
+    const expiryInput = document.getElementById('cardExpiry');
+    if (expiryInput) {
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\//g, '');
+            if (value.length > 4) value = value.slice(0, 4);
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+    }
+
+    // Показываем/скрываем поля карты в зависимости от выбранного способа
+    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const cardDetails = document.getElementById('cardDetails');
+            cardDetails.style.display = this.value === 'card' ? 'block' : 'none';
+        });
+    });
+
+    function processPayment() {
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+        // Простая валидация для карты
+        if (paymentMethod === 'card') {
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const cardCvv = document.getElementById('cardCvv').value;
+
+            if (cardNumber.length < 16) {
+                alert('Введите корректный номер карты (16 цифр)');
+                return;
+            }
+            if (cardExpiry.length < 5) {
+                alert('Введите срок действия карты в формате ММ/ГГ');
+                return;
+            }
+            if (cardCvv.length < 3) {
+                alert('Введите CVV код (3 цифры)');
+                return;
+            }
+        }
+
+        document.getElementById('paymentForm').style.display = 'none';
+        document.getElementById('paymentProcessing').style.display = 'block';
+
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step3 = document.getElementById('step3');
+
+        setTimeout(() => {
+            step1.querySelector('.step-status').innerHTML = '✓';
+            step1.querySelector('.step-text').innerHTML = 'Данные проверены';
+
+            setTimeout(() => {
+                step2.querySelector('.step-status').innerHTML = '✓';
+                step2.querySelector('.step-text').innerHTML = 'Платеж получен';
+
+                setTimeout(() => {
+                    step3.querySelector('.step-status').innerHTML = '✓';
+                    step3.querySelector('.step-text').innerHTML = 'Заказ оформлен';
+
+                    setTimeout(() => {
+                        fetch('/merch/payment/confirm', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(Object.assign({}, order, { payment_method: paymentMethod }))
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('paymentProcessing').style.display = 'none';
+                                document.getElementById('paymentResult').style.display = 'block';
+                            } else {
+                                alert('Ошибка при оформлении заказа: ' + (data.error || 'Неизвестная ошибка'));
+                                document.getElementById('paymentProcessing').style.display = 'none';
+                                document.getElementById('paymentForm').style.display = 'block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Ошибка:', error);
+                            alert('Ошибка соединения с сервером');
+                            document.getElementById('paymentProcessing').style.display = 'none';
+                            document.getElementById('paymentForm').style.display = 'block';
+                        });
+                    }, 500);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }
+</script>
+
+<%- include('partials/footer') %>

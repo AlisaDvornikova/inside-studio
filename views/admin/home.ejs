@@ -1,0 +1,157 @@
+<%- include('../partials/header', { currentPage: 'admin' }) %>
+
+<section class="admin-page admin-home">
+    <div class="container">
+        <h2>Управление главной страницей</h2>
+
+        <% if (saved) { %>
+            <div class="success-message">✅ Изменения сохранены!</div>
+        <% } %>
+        <% if (error) { %>
+            <div class="error-message">Произошла ошибка при сохранении (<%= error %>)</div>
+        <% } %>
+
+        <!-- ===== Порядок и видимость блоков ===== -->
+        <h3>Блоки страницы</h3>
+        <p class="admin-hint">Управляйте порядком блоков и их видимостью на главной.</p>
+        <div class="blocks-manager">
+            <% blocks.forEach((block, i) => { %>
+                <div class="block-row <%= block.is_visible ? '' : 'block-hidden' %>">
+                    <span class="block-name"><%= block.name %></span>
+                    <div class="block-controls">
+                        <form action="/admin/home/block/<%= block.id %>/move" method="POST" style="display:inline">
+                            <input type="hidden" name="direction" value="up">
+                            <button type="submit" class="btn-move" <%= i === 0 ? 'disabled' : '' %>>↑</button>
+                        </form>
+                        <form action="/admin/home/block/<%= block.id %>/move" method="POST" style="display:inline">
+                            <input type="hidden" name="direction" value="down">
+                            <button type="submit" class="btn-move" <%= i === blocks.length - 1 ? 'disabled' : '' %>>↓</button>
+                        </form>
+                        <form action="/admin/home/block/<%= block.id %>/toggle" method="POST" style="display:inline">
+                            <button type="submit" class="btn-toggle <%= block.is_visible ? 'on' : 'off' %>">
+                                <%= block.is_visible ? '👁 Показан' : '🚫 Скрыт' %>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+        <!-- ===== Тексты блоков ===== -->
+        <form action="/admin/home/content" method="POST" class="content-form">
+
+            <h3>Баннер</h3>
+            <div class="field">
+                <label>Текст кнопки (для гостей)</label>
+                <input type="text" name="banner_btn_guest" value="<%= content.banner_btn_guest || '' %>">
+            </div>
+            <div class="field">
+                <label>Текст кнопки (для вошедших)</label>
+                <input type="text" name="banner_btn_user" value="<%= content.banner_btn_user || '' %>">
+            </div>
+
+            <h3>Про нас</h3>
+            <div class="field">
+                <label>Заголовок</label>
+                <input type="text" name="about_title" value="<%= content.about_title || '' %>">
+            </div>
+            <div class="field">
+                <label>Абзац 1</label>
+                <textarea name="about_text1" rows="3"><%= content.about_text1 || '' %></textarea>
+            </div>
+            <div class="field">
+                <label>Абзац 2</label>
+                <textarea name="about_text2" rows="3"><%= content.about_text2 || '' %></textarea>
+            </div>
+
+            <h3>Отзывы</h3>
+            <div class="field">
+                <label>Заголовок блока</label>
+                <input type="text" name="reviews_title" value="<%= content.reviews_title || '' %>">
+            </div>
+
+            <h3>Соцсети</h3>
+            <div class="field">
+                <label>Заголовок</label>
+                <input type="text" name="social_title" value="<%= content.social_title || '' %>">
+            </div>
+            <div class="field">
+                <label>Ссылка Instagram</label>
+                <input type="text" name="social_instagram" value="<%= content.social_instagram || '' %>">
+            </div>
+            <div class="field">
+                <label>Ссылка Telegram</label>
+                <input type="text" name="social_telegram" value="<%= content.social_telegram || '' %>">
+            </div>
+            <div class="field">
+                <label>Ссылка VK</label>
+                <input type="text" name="social_vk" value="<%= content.social_vk || '' %>">
+            </div>
+            <div class="field">
+                <label>Примечание под иконками</label>
+                <input type="text" name="social_note" value="<%= content.social_note || '' %>">
+            </div>
+
+            <h3>Адрес</h3>
+            <div class="field">
+                <label>Заголовок</label>
+                <input type="text" name="address_title" value="<%= content.address_title || '' %>">
+            </div>
+            <div class="field">
+                <label>Название студии</label>
+                <input type="text" name="address_name" value="<%= content.address_name || '' %>">
+            </div>
+            <div class="field">
+                <label>Адрес (строка 1)</label>
+                <input type="text" name="address_line1" value="<%= content.address_line1 || '' %>">
+            </div>
+            <div class="field">
+                <label>Адрес (строка 2)</label>
+                <input type="text" name="address_line2" value="<%= content.address_line2 || '' %>">
+            </div>
+            <div class="field">
+                <label>Ссылка на карту</label>
+                <input type="text" name="map_link" value="<%= content.map_link || '' %>">
+            </div>
+            <div class="field">
+                <label>Текст ссылки на карту</label>
+                <input type="text" name="map_link_text" value="<%= content.map_link_text || '' %>">
+            </div>
+
+            <button type="submit" class="btn">💾 Сохранить тексты</button>
+        </form>
+
+        <!-- ===== Видео баннера ===== -->
+        <h3>Видео баннера</h3>
+        <% if (content.banner_video) { %>
+            <p class="admin-hint">Текущее видео: <code><%= content.banner_video %></code></p>
+            <video class="admin-video-preview" src="<%= content.banner_video %>" muted controls></video>
+        <% } %>
+        <form action="/admin/home/video" method="POST" enctype="multipart/form-data" class="admin-form">
+            <input type="file" name="video" accept="video/*" required>
+            <button type="submit" class="btn">Загрузить видео</button>
+        </form>
+
+        <!-- ===== Фото студии (карусель) ===== -->
+        <h3>Фото студии (карусель)</h3>
+        <div class="home-images-grid">
+            <% images.forEach(img => { %>
+                <div class="home-image-item">
+                    <img src="<%= img.image_path %>" alt="Фото">
+                    <form action="/admin/home/image/delete/<%= img.id %>" method="POST">
+                        <button type="submit" class="btn-delete" onclick="return confirm('Удалить фото?')">✗ Удалить</button>
+                    </form>
+                </div>
+            <% }); %>
+            <% if (images.length === 0) { %>
+                <p class="admin-hint">Фотографий пока нет.</p>
+            <% } %>
+        </div>
+        <form action="/admin/home/image" method="POST" enctype="multipart/form-data" class="admin-form">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit" class="btn">Добавить фото</button>
+        </form>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>

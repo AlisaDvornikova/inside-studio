@@ -1,0 +1,85 @@
+<%- include('../partials/header', { currentPage: 'admin' }) %>
+
+<section class="admin-page admin-merch">
+    <div class="container">
+        <h2>Товары мерча</h2>
+
+        <% if (saved) { %>
+            <div class="success-message">✅ Изменения сохранены!</div>
+        <% } %>
+        <% if (error) { %>
+            <div class="error-message">Произошла ошибка (<%= error %>)</div>
+        <% } %>
+
+        <p class="admin-hint">
+            Цвета и размеры указывайте через запятую, например: <code>Чёрный,Белый,Серый</code> и <code>XS,S,M,L,XL</code>.
+        </p>
+
+        <!-- Добавление товара -->
+        <form action="/admin/merch/add" method="POST" enctype="multipart/form-data" class="admin-form merch-add-form">
+            <h3>Добавить товар</h3>
+            <div class="field">
+                <label>Название</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="field">
+                <label>Описание</label>
+                <textarea name="description" rows="2"></textarea>
+            </div>
+            <div class="field">
+                <label>Цена (₽)</label>
+                <input type="number" name="price" min="0" required>
+            </div>
+            <div class="field">
+                <label>Цвета (через запятую)</label>
+                <input type="text" name="colors" placeholder="Чёрный,Белый">
+            </div>
+            <div class="field">
+                <label>Размеры (через запятую)</label>
+                <input type="text" name="sizes" placeholder="XS,S,M,L,XL">
+            </div>
+            <div class="field">
+                <label>Фото товара</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
+            <button type="submit" class="btn">Добавить товар</button>
+        </form>
+
+        <!-- Список товаров -->
+        <h3>Список товаров</h3>
+        <div class="merch-admin-grid">
+            <% if (products.length === 0) { %>
+                <p class="admin-hint">Товаров пока нет.</p>
+            <% } %>
+            <% products.forEach(p => { %>
+                <div class="merch-admin-item <%= p.is_active ? '' : 'block-hidden' %>">
+                    <div class="merch-admin-img">
+                        <% if (p.image) { %>
+                            <img src="<%= p.image %>" alt="<%= p.name %>">
+                        <% } else { %>
+                            <div class="merch-noimg"><i class="fas fa-tshirt"></i></div>
+                        <% } %>
+                    </div>
+                    <div class="merch-admin-info">
+                        <strong><%= p.name %></strong>
+                        <span class="merch-admin-price"><%= p.price %> ₽</span>
+                        <small><%= p.colors %></small>
+                        <small><%= p.sizes %></small>
+                    </div>
+                    <div class="merch-admin-actions">
+                        <form action="/admin/merch/toggle/<%= p.id %>" method="POST" style="display:inline">
+                            <button type="submit" class="btn-toggle <%= p.is_active ? 'on' : 'off' %>">
+                                <%= p.is_active ? '👁 Активен' : '🚫 Скрыт' %>
+                            </button>
+                        </form>
+                        <form action="/admin/merch/delete/<%= p.id %>" method="POST" style="display:inline">
+                            <button type="submit" class="btn-delete" onclick="return confirm('Удалить товар?')">✗ Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>

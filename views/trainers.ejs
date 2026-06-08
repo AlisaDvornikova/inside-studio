@@ -1,0 +1,40 @@
+<%- include('partials/header', { currentPage: 'trainers' }) %>
+
+<section class="trainers-page">
+    <div class="container">
+        <div class="trainers-content">
+            <% if (typeof trainers !== 'undefined' && trainers && trainers.length > 0) { %>
+                <div class="trainers-grid">
+                    <% trainers.forEach(trainer => { %>
+                        <div class="trainer-card">
+                            <div class="trainer-img-container">
+                                <img src="<%= trainer.photo || '/images/logo-icon.png' %>" alt="<%= trainer.name %>" class="trainer-img">
+                                <div class="trainer-name-overlay">
+                                    <h3><%= trainer.name %></h3>
+                                </div>
+                            </div>
+                            <div class="trainer-info">
+                                <% if (trainer.specialties) { %>
+                                    <p class="trainer-specialties"><%= trainer.specialties %></p>
+                                <% } %>
+                                <a href="/trainer/<%= trainer.id %>" class="btn-trainer">Подробнее</a>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p class="trainers-empty">Тренеры скоро появятся.</p>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
+
+
+
+
+
+
+
+

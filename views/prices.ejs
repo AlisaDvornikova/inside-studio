@@ -1,0 +1,171 @@
+<%- include('partials/header', { currentPage: 'prices' }) %>
+
+<section class="prices-page">
+    <div class="container">
+        <!-- Пробные занятия -->
+        <div class="price-section">
+            <div class="price-card-simple">
+                <div class="price-title">Пробное занятие</div>
+                <div class="price-value">300₽</div>
+                <div class="price-desc">(На первое посещение студии)</div>
+                <button onclick="checkAuthAndBuy(13)" class="btn-buy-small">Купить</button>
+            </div>
+            
+            <div class="price-card-simple mt-3">
+                <div class="price-title">Два пробных занятия</div>
+                <div class="price-value">450₽</div>
+                <div class="price-desc">(На 2 разных направления на первое посещение студии)</div>
+                <button onclick="checkAuthAndBuy(14)" class="btn-buy-small">Купить</button>
+            </div>
+        </div>
+        
+        <!-- По количеству занятий в месяц (с привязкой к группе) -->
+        <div class="price-section">
+            <h2 class="section-title">По количеству занятий в месяц</h2>
+            <div class="price-note">С привязкой к определенной группе</div>
+            
+            <div class="price-grid">
+                <div class="price-card-simple">
+                    <div class="price-title">8 занятий (2 раза в неделю)</div>
+                    <div class="price-value">3 500₽</div>
+                    <button onclick="checkAuthAndBuy(1)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">12 занятий (3 раза в неделю)</div>
+                    <div class="price-value">4 200₽</div>
+                    <button onclick="checkAuthAndBuy(2)" class="btn-buy-small">Купить</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- По количеству занятий в месяц (без привязки) -->
+        <div class="price-section">
+            <h2 class="section-title">По количеству занятий в месяц</h2>
+            <div class="price-note">Без привязки к определенной группе, без ограничений в неделю</div>
+            
+            <div class="price-grid">
+                <div class="price-card-simple">
+                    <div class="price-title">8 занятий</div>
+                    <div class="price-value">3 900₽</div>
+                    <button onclick="checkAuthAndBuy(3)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">12 занятий</div>
+                    <div class="price-value">4 600₽</div>
+                    <button onclick="checkAuthAndBuy(4)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">25 занятий</div>
+                    <div class="price-value">7 500₽</div>
+                    <button onclick="checkAuthAndBuy(5)" class="btn-buy-small">Купить</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Специальные предложения -->
+        <div class="price-section">
+            <h2 class="section-title">Специальные предложения</h2>
+            
+            <div class="special-offer">
+                <div class="offer-card">
+                    <h4>Семейное посещение</h4>
+                    <p>скидка 10% на каждый абонемент</p>
+                </div>
+            </div>
+            
+            <div class="price-grid">
+                <div class="price-card-simple">
+                    <div class="price-title">Breakdance & Акробатика</div>
+                    <div class="price-value">5 500₽</div>
+                    <button onclick="checkAuthAndBuy(6)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">Body Mix & Растяжка</div>
+                    <div class="price-value">2 000₽</div>
+                    <button onclick="checkAuthAndBuy(7)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">Акробатика</div>
+                    <div class="price-value">3 000₽</div>
+                    <button onclick="checkAuthAndBuy(8)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">Body Mix & Растяжка</div>
+                    <div class="price-value">3 300₽</div>
+                    <button onclick="checkAuthAndBuy(9)" class="btn-buy-small">Купить</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Абонемент на 3 месяца -->
+        <div class="price-section">
+            <h2 class="section-title">Абонемент на 3 месяца</h2>
+            <div class="price-note">Без привязки к группе</div>
+            
+            <div class="price-grid">
+                <div class="price-card-simple">
+                    <div class="price-title">По 8 занятий/мес (24)</div>
+                    <div class="price-value">9 200₽</div>
+                    <button onclick="checkAuthAndBuy(10)" class="btn-buy-small">Купить</button>
+                </div>
+                
+                <div class="price-card-simple">
+                    <div class="price-title">По 12 занятий/мес (36)</div>
+                    <div class="price-value">11 000₽</div>
+                    <button onclick="checkAuthAndBuy(11)" class="btn-buy-small">Купить</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Безлимит -->
+        <div class="price-section">
+            <div class="price-card-highlight">
+                <div class="price-title">Безлимит на месяц</div>
+                <div class="price-value">9 000₽</div>
+                <div class="price-desc">Любая группа и любое количество занятий по сетке расписания в течении месяца</div>
+                <div class="price-note">*более 50 занятий в месяц</div>
+                <button onclick="checkAuthAndBuy(12)" class="btn-buy-highlight">Купить</button>
+            </div>
+        </div>
+        
+        <!-- Запись по телефону -->
+        <div class="phone-order">
+            <div class="phone-card">
+                <h3>Остались вопросы? Просто позвоните нам — проконсультируем за 1 минуту</h3>
+                <a href="tel:+79242937220" class="phone-number">+7(924) 293-72-20</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function checkAuthAndBuy(subscriptionId) {
+        // Проверяем авторизацию через fetch
+        fetch('/check-auth')
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    // Если авторизован — переходим к оплате
+                    window.location.href = `/buy/${subscriptionId}`;
+                } else {
+                    // Если не авторизован — спрашиваем и перенаправляем на логин
+                    if (confirm('Для покупки абонемента необходимо войти или зарегистрироваться. Перейти на страницу входа?')) {
+                        window.location.href = '/login';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка проверки авторизации:', error);
+                // Если ошибка, пробуем прямой переход
+                window.location.href = `/buy/${subscriptionId}`;
+            });
+    }
+</script>
+
+<%- include('partials/footer') %>

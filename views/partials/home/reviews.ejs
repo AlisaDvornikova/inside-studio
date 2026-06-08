@@ -1,0 +1,39 @@
+<!-- Отзывы карусель -->
+<section class="reviews-carousel-section">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #00b4d8;"><%= content.reviews_title || 'Отзывы наших учеников' %></h2>
+        <% if (reviews && reviews.length > 0) { %>
+        <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <% reviews.forEach((review, i) => { %>
+                    <button type="button" data-bs-target="#reviewsCarousel" data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>"></button>
+                <% }); %>
+            </div>
+            <div class="carousel-inner">
+                <% reviews.forEach((review, i) => { %>
+                    <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                        <div class="review-card-carousel">
+                            <div class="review-header">
+                                <strong class="review-user-name"><%= review.name %></strong>
+                                <div class="rating"><%= '★'.repeat(review.rating) %><%= '☆'.repeat(5 - review.rating) %></div>
+                            </div>
+                            <p class="review-text-carousel">«<%= review.text %>»</p>
+                            <small class="review-date"><%= new Date(review.created_at).toLocaleDateString('ru-RU') %></small>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <% if (reviews.length > 1) { %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+            <% } %>
+        </div>
+        <% } else { %>
+        <p class="text-center" style="color: #ffffff;">Пока нет отзывов. Будьте первыми!</p>
+        <% } %>
+    </div>
+</section>
