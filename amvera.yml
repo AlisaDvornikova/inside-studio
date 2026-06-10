@@ -1,0 +1,17 @@
+meta:
+  environment: node
+  toolchain:
+    name: npm
+    version: 20
+build:
+  artifacts:
+    - type: "node_modules"
+      paths:
+        - node_modules
+  commands:
+    - npm install
+run:
+  command: node app.js
+  persistenceMount: /data
+  containerPort: 3000
+  workDir: /app
