@@ -14,4 +14,3 @@ run:
   command: node app.js
   persistenceMount: /data
   containerPort: 3000
-  workDir: /app
